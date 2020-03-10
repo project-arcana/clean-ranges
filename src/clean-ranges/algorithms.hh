@@ -7,6 +7,7 @@
 #include <clean-ranges/algorithms/any.hh>
 #include <clean-ranges/algorithms/contains.hh>
 #include <clean-ranges/algorithms/count.hh>
+#include <clean-ranges/algorithms/empty.hh>
 #include <clean-ranges/algorithms/first.hh>
 #include <clean-ranges/algorithms/last.hh>
 #include <clean-ranges/algorithms/minmax.hh>
