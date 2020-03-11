@@ -37,7 +37,6 @@ Algorithms:
 * map (with index support)
 * indexed
 * find / find_or / find_opt
-* index_of / index_of_first / index_of_last
 * flatten
 * where (index support)
 * ordered_by / sort (inplace)
@@ -64,6 +63,7 @@ Built-in ranges:
 Optimizations:
 
 * random access / reverse its for faster reverse
+* _last versions can be faster with random access / reverse its
 * O(1) size
 
 QoL:

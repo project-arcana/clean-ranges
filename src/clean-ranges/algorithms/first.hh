@@ -9,7 +9,7 @@
 namespace cr
 {
 /// returning the first element satisfying the predicate in the range
-/// NOTE: does not work on empty ranges
+/// NOTE: requires at least one matching element
 /// Complexity: O(i) where i is the "index" of the returned element
 template <class Range, class Predicate = cc::constant_function<true>>
 [[nodiscard]] constexpr decltype(auto) first(Range&& range, Predicate&& predicate = {})

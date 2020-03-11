@@ -11,6 +11,7 @@
 #include <clean-ranges/algorithms/empty.hh>
 #include <clean-ranges/algorithms/fill.hh>
 #include <clean-ranges/algorithms/first.hh>
+#include <clean-ranges/algorithms/index_of.hh>
 #include <clean-ranges/algorithms/last.hh>
 #include <clean-ranges/algorithms/minmax.hh>
 #include <clean-ranges/algorithms/reduce.hh>
