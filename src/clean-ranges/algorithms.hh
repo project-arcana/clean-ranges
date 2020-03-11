@@ -15,6 +15,7 @@
 #include <clean-ranges/algorithms/index_of.hh>
 #include <clean-ranges/algorithms/last.hh>
 #include <clean-ranges/algorithms/minmax.hh>
+#include <clean-ranges/algorithms/n_th.hh>
 #include <clean-ranges/algorithms/reduce.hh>
 #include <clean-ranges/algorithms/single.hh>
 #include <clean-ranges/algorithms/sum.hh>

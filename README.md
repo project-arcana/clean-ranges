@@ -27,7 +27,6 @@ NOTE: pointer-to-members (and -functions) do not only work on values or referenc
 
 Algorithms:
 
-* n_th / n_th_last (how?)
 * drop_first / _last / drop_while
 * at / at_or / at_opt
 * mean / average
@@ -36,7 +35,6 @@ Algorithms:
 * percentile
 * map (with index support)
 * indexed
-* find / find_or / find_opt
 * flatten
 * where (index support)
 * ordered_by / sort (inplace)
@@ -52,6 +50,10 @@ Algorithms:
 * shuffled
 * associate (creates a map)
 * comparisons
+
+Algorithms that are unclear how to implement:
+
+* n_th_last
 
 Built-in ranges:
 
