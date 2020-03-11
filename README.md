@@ -69,6 +69,7 @@ Optimizations:
 QoL:
 
 * support indices in call
+* xyz vs xyz'ed versions (e.g. sort vs sorted, reverse vs reversed)
 
 Extensibility:
 

@@ -8,9 +8,9 @@
 
 namespace cr
 {
-/// returning the last element satisfying the predicate in the range
+/// returns the last element satisfying the predicate in the range
 /// NOTE: requires at least one matching element
-/// Complexity: O(i) where i is the "index" of the returned element
+/// Complexity: O(n)
 template <class Range, class Predicate = cc::constant_function<true>>
 [[nodiscard]] constexpr decltype(auto) last(Range&& range, Predicate&& predicate = {})
 {

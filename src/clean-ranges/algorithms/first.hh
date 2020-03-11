@@ -8,7 +8,7 @@
 
 namespace cr
 {
-/// returning the first element satisfying the predicate in the range
+/// returns the first element satisfying the predicate in the range
 /// NOTE: requires at least one matching element
 /// Complexity: O(i) where i is the "index" of the returned element
 template <class Range, class Predicate = cc::constant_function<true>>
