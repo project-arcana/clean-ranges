@@ -20,16 +20,19 @@ template <class CountT = void, class Range, class MapF = cc::identity>
     auto it = cc::begin(range);
     auto end = cc::end(range);
     using T = cr::detail::type_or<CountT, size_t>;
+    size_t idx = 0;
     auto cnt = T(1);
     CC_ASSERT(it != end && "requires non-empty range");
 
-    auto s = cr::detail::call(f, *it);
+    auto s = cr::detail::call(idx, f, *it);
     ++it;
+    ++idx;
     while (it != end)
     {
-        s = s + cr::detail::call(f, *it);
+        s = s + cr::detail::call(idx, f, *it);
         ++it;
         ++cnt;
+        ++idx;
     }
 
     return s / cnt;

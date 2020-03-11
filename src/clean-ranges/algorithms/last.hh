@@ -16,19 +16,21 @@ template <class Range, class Predicate = cc::constant_function<true>>
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
+    size_t idx = 0;
 
     auto found = false;
     auto res_it = it;
 
     while (it != end)
     {
-        if (cr::detail::call(predicate, *it))
+        if (cr::detail::call(idx, predicate, *it))
         {
             res_it = it;
             found = true;
         }
 
         ++it;
+        ++idx;
     }
 
     CC_ASSERT(found && "no element satisfying the predicate found");

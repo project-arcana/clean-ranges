@@ -22,6 +22,32 @@ NOTE: pointer-to-members (and -functions) do not only work on values or referenc
 
 (implementation detail: actually just uses `e.*f` or `(*e).*f` depending on which one would compile)
 
+### Indexed Calls
+
+Most function objects can also be used with an index.
+Internally, the index is a `size_t`, though all compatible types can be used.
+The index is optional but always the first argument.
+
+Examples:
+
+```cpp
+cc::vector<int> vals = ...;
+cr::for_each(vals, [](int idx, int value) {
+    std::cout << idx << ": " << value << std::endl;
+});
+
+auto same_as_idx = cr::find(vals, [](size_t idx, int v) { return v == idx; });
+
+struct foo
+{
+    int value;
+
+    bool is_above_idx(int idx) const { return value > idx; }
+};
+cc::array<foo> foos = ...;
+foo& f = cr::first(foos, &foo::is_above_idx);
+```
+
 
 ## TODO
 
@@ -31,7 +57,7 @@ Algorithms:
 * median
 * mode
 * percentile
-* map (with index support)
+* map
 * indexed
 * flatten
 * where (index support)
@@ -40,7 +66,7 @@ Algorithms:
 * windowed / chunked / pairwise
 * reverse
 * collect / to / into
-* apply / transform (with index support)
+* apply / transform
 * unique / distinct
 * group_by
 * join_to / join_to_string
@@ -59,7 +85,7 @@ Built-in ranges:
 
 * from-to
 * infinite ranges
-* iterator pairs
+* iterator pairs (more general A and B)
 * from function
 
 Optimizations:
@@ -70,9 +96,12 @@ Optimizations:
 
 QoL:
 
-* support indices in call
 * xyz vs xyz'ed versions (e.g. sort vs sorted, reverse vs reversed)
 
 Extensibility:
 
 * CRTP range + inheritance
+
+Benchmarks:
+
+* check if `idx` is properly optimized out if not used

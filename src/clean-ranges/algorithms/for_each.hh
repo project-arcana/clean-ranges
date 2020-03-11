@@ -12,11 +12,13 @@ constexpr void for_each(Range&& range, F&& f)
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
+    size_t idx = 0;
 
     while (it != end)
     {
-        cr::detail::call(f, *it);
+        cr::detail::call(idx, f, *it);
         ++it;
+        ++idx;
     }
 }
 }

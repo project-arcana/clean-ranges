@@ -30,16 +30,18 @@ template <class Range, class Predicate, class T>
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
+    size_t idx = 0;
 
     using R = decltype(true ? *it : cc::forward<T>(value));
 
     while (it != end)
     {
         decltype(auto) v = *it;
-        if (cr::detail::call(predicate, v))
+        if (cr::detail::call(idx, predicate, v))
             return static_cast<R>(v);
 
         ++it;
+        ++idx;
     }
 
     return static_cast<R>(cc::forward<T>(value));
@@ -52,19 +54,21 @@ template <class Range, class Predicate, class T>
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
+    size_t idx = 0;
 
     auto found = false;
     auto res_it = it;
 
     while (it != end)
     {
-        if (cr::detail::call(predicate, *it))
+        if (cr::detail::call(idx, predicate, *it))
         {
             res_it = it;
             found = true;
         }
 
         ++it;
+        ++idx;
     }
 
     return found ? *res_it : cc::forward<T>(value);

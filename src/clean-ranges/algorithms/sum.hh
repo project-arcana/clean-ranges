@@ -18,15 +18,18 @@ template <class AccumT = void, class Range, class MapF = cc::identity>
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
-    using T = cr::detail::type_or<AccumT, decltype(cr::detail::call(f, *it))>;
+    size_t idx = 0;
+    using T = cr::detail::type_or<AccumT, decltype(cr::detail::call(idx, f, *it))>;
     CC_ASSERT(it != end && "requires non-empty range");
 
-    auto s = static_cast<T>(cr::detail::call(f, *it));
+    auto s = static_cast<T>(cr::detail::call(idx, f, *it));
     ++it;
+    ++idx;
     while (it != end)
     {
-        s = s + static_cast<T>(cr::detail::call(f, *it));
+        s = s + static_cast<T>(cr::detail::call(idx, f, *it));
         ++it;
+        ++idx;
     }
 
     return s;

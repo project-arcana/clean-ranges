@@ -25,14 +25,17 @@ template <class Range, class Op, class MapF = cc::identity>
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
+    size_t idx = 0;
     CC_ASSERT(it != end && "requires non-empty range");
 
-    auto s = cr::detail::call(f, *it);
+    auto s = cr::detail::call(idx, f, *it);
     ++it;
+    ++idx;
     while (it != end)
     {
-        s = op(s, cr::detail::call(f, *it));
+        s = op(s, cr::detail::call(idx, f, *it));
         ++it;
+        ++idx;
     }
 
     return s;

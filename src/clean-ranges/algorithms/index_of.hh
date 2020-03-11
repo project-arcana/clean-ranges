@@ -64,7 +64,7 @@ template <class Range, class Predicate>
 
     while (it != end)
     {
-        if (cr::detail::call(predicate, *it))
+        if (cr::detail::call(idx, predicate, *it))
             return idx;
 
         ++it;
@@ -84,7 +84,7 @@ template <class Range, class Predicate>
 
     while (it != end)
     {
-        if (cr::detail::call(predicate, *it))
+        if (cr::detail::call(idx, predicate, *it))
             return idx;
 
         ++it;
@@ -107,7 +107,7 @@ template <class Range, class Predicate>
 
     while (it != end)
     {
-        if (cr::detail::call(predicate, *it))
+        if (cr::detail::call(idx, predicate, *it))
             r = idx;
 
         ++it;
@@ -130,7 +130,7 @@ template <class Range, class Predicate>
 
     while (it != end)
     {
-        if (cr::detail::call(predicate, *it))
+        if (cr::detail::call(idx, predicate, *it))
             r = idx;
 
         ++it;

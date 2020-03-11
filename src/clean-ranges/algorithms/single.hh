@@ -15,18 +15,21 @@ template <class Range, class Predicate = cc::constant_function<true>>
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
+    size_t idx = 0;
 
     while (it != end)
     {
         decltype(auto) v = *it;
-        if (cr::detail::call(predicate, v))
+        if (cr::detail::call(idx, predicate, v))
         {
 #ifdef CC_ENABLE_ASSERTIONS
             ++it;
+            ++idx;
             while (it != end)
             {
-                CC_ASSERT(!cr::detail::call(predicate, *it) && "is not actually the only element");
+                CC_ASSERT(!cr::detail::call(idx, predicate, *it) && "is not actually the only element");
                 ++it;
+                ++idx;
             }
 #endif
 
@@ -34,6 +37,7 @@ template <class Range, class Predicate = cc::constant_function<true>>
         }
 
         ++it;
+        ++idx;
     }
 
     CC_UNREACHABLE("no element satisfying the predicate found");

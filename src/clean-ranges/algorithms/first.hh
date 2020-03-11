@@ -16,14 +16,16 @@ template <class Range, class Predicate = cc::constant_function<true>>
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
+    size_t idx = 0;
 
     while (it != end)
     {
         decltype(auto) v = *it;
-        if (cr::detail::call(predicate, v))
+        if (cr::detail::call(idx, predicate, v))
             return v;
 
         ++it;
+        ++idx;
     }
 
     CC_UNREACHABLE("no element satisfying the predicate found");
