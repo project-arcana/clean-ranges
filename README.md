@@ -3,6 +3,26 @@
 A batteries-included functional C++ library for collections and ranges.
 
 
+## Generalized function object
+
+Many operations on ranges support a _generalized_ notion of function that can be passed.
+For example, `cr::sum(my_range, f)` supports the following for `f`:
+
+* free functions (e.g. `int f(int x) { return x + 1; }`), calls `f(e)` per element
+* lambdas (e.g. `auto f = [](int x) { return x + 1; }`), calls `f(e)` per element
+* function objects (e.g. `foo f` with `int foo::operator()(int x) { return x + 1; }`), calls `f(e)` per element
+* pointer-to-member (e.g. `auto f = &foo::x` with `struct foo { int x; };`), evaluates `e.*f` per element
+* pointer-to-member-function (e.g. `auto f = &foo::bar` with `struct foo { int bar() { return x + 1;} };`), calls `(e.*f)()` per element
+
+NOTE: pointer-to-members (and -functions) do not only work on values or references:
+
+* for values and references, uses `e.*f`
+* for pointers, uses `e->*f`
+* for smart pointers, uses `(*e).*f`
+
+(implementation detail: actually just uses `e.*f` or `(*e).*f` depending on which one would compile)
+
+
 ## TODO
 
 Algorithms:
@@ -32,6 +52,7 @@ Algorithms:
 * partition (pred -> left and right result)
 * shuffled
 * associate (creates a map)
+* comparisons
 
 Built-in ranges:
 
@@ -48,7 +69,6 @@ Optimizations:
 QoL:
 
 * support indices in call
-* call support pointer-to-member(-fun) for smart pointers
 
 Extensibility:
 
