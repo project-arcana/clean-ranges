@@ -28,7 +28,6 @@ NOTE: pointer-to-members (and -functions) do not only work on values or referenc
 Algorithms:
 
 * drop_first / _last / drop_while
-* at / at_or / at_opt
 * median
 * mode
 * percentile
@@ -41,14 +40,13 @@ Algorithms:
 * windowed / chunked / pairwise
 * reverse
 * collect / to / into
-* apply / transform / each (with index support)
+* apply / transform (with index support)
 * unique / distinct
 * group_by
 * join_to / join_to_string
 * partition (pred -> left and right result)
 * shuffled
 * associate (creates a map)
-* comparisons
 * prefix / suffix / subrange
 * is_prefix / is_suffix / startswith / endswith / is_subrange
 * 3way comp, lexicographic
