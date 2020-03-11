@@ -49,8 +49,11 @@ Algorithms:
 * shuffled
 * associate (creates a map)
 * comparisons
+* prefix / suffix / subrange
+* is_prefix / is_suffix / startswith / endswith / is_subrange
+* 3way comp, lexicographic
 
-Algorithms that are unclear how to implement:
+Algorithms that are unclear how to implement (for now):
 
 * n_th_last
 
