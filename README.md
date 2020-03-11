@@ -29,7 +29,6 @@ Algorithms:
 
 * drop_first / _last / drop_while
 * at / at_or / at_opt
-* mean / average
 * median
 * mode
 * percentile
