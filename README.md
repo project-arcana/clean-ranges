@@ -76,6 +76,7 @@ Algorithms:
 * prefix / suffix / subrange
 * is_prefix / is_suffix / startswith / endswith / is_subrange
 * 3way comp, lexicographic
+* find_it, find_opt
 
 Algorithms that are unclear how to implement (for now):
 
@@ -83,10 +84,14 @@ Algorithms that are unclear how to implement (for now):
 
 Built-in ranges:
 
-* from-to
-* infinite ranges
+* from-to (cr::bounded_range)
+* infinite ranges (cr::unbounded_range)
 * iterator pairs (more general A and B)
 * from function
+
+Smart-range features:
+
+* operator>> and << with callables (basically foreach, but also allows empty arg)
 
 Optimizations:
 

@@ -40,8 +40,11 @@ struct smart_range
     // pass-through collection
 public:
     [[nodiscard]] constexpr auto begin() { return cc::begin(_container); }
+    [[nodiscard]] constexpr auto begin() const { return cc::begin(_container); }
     [[nodiscard]] constexpr auto end() { return cc::end(_container); }
+    [[nodiscard]] constexpr auto end() const { return cc::end(_container); }
     [[nodiscard]] constexpr decltype(auto) container() { return _container; }
+    [[nodiscard]] constexpr decltype(auto) container() const { return _container; }
 
     // algorithms
 public:
