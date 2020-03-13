@@ -65,7 +65,6 @@ Algorithms:
 * zip / unzip
 * windowed / chunked / pairwise
 * reverse
-* collect / to / into
 * apply / transform
 * unique / distinct
 * group_by
