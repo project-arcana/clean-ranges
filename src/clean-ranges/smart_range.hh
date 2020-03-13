@@ -34,7 +34,7 @@ struct smart_range
     static constexpr bool is_readonly = std::is_const_v<std::remove_reference_t<ContainerT>>;
     static_assert(!std::is_rvalue_reference_v<ContainerT>, "cannot hold rvalue references");
 
-    using element_t = decltype(*cc::begin(std::declval<ContainerT>()));
+    using element_t = decltype(*cc::begin(std::declval<ContainerT&>()));
     using decayed_element_t = std::decay_t<element_t>;
 
     constexpr smart_range(ContainerT c) : _container(cc::forward<ContainerT>(c)) {}
@@ -64,6 +64,21 @@ public:
     [[nodiscard]] constexpr decltype(auto) element_at(size_t idx);
     template <class T>
     [[nodiscard]] constexpr decltype(auto) element_at_or(size_t idx, T&& value);
+
+    template <class Predicate>
+    [[nodiscard]] constexpr auto where(Predicate&& pred);
+    template <class Predicate>
+    [[nodiscard]] constexpr auto where_not(Predicate&& pred);
+
+    template <class MapF>
+    [[nodiscard]] constexpr auto map(MapF&& f);
+    template <class MapF, class Predicate>
+    [[nodiscard]] constexpr auto map_where(MapF&& f, Predicate&& pred);
+    template <class MapF, class Predicate>
+    [[nodiscard]] constexpr auto map_where_not(MapF&& f, Predicate&& pred);
+
+    template <class T>
+    constexpr void fill(T const& value);
 
 private:
     ContainerT _container;

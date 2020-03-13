@@ -60,7 +60,6 @@ Algorithms:
 * map
 * indexed
 * flatten
-* where (index support)
 * ordered_by / sort (inplace)
 * zip / unzip
 * windowed / chunked / pairwise
@@ -77,6 +76,7 @@ Algorithms:
 * 3way comp, lexicographic
 * find_it, find_opt
 * cast_to
+* concat
 
 Algorithms that are unclear how to implement (for now):
 

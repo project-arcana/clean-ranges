@@ -19,8 +19,10 @@
 #include <clean-ranges/algorithms/for_each.hh>
 #include <clean-ranges/algorithms/index_of.hh>
 #include <clean-ranges/algorithms/last.hh>
+#include <clean-ranges/algorithms/map.hh>
 #include <clean-ranges/algorithms/minmax.hh>
 #include <clean-ranges/algorithms/reduce.hh>
 #include <clean-ranges/algorithms/single.hh>
 #include <clean-ranges/algorithms/sum.hh>
 #include <clean-ranges/algorithms/to.hh>
+#include <clean-ranges/algorithms/where.hh>
