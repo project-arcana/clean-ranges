@@ -2,15 +2,13 @@
 
 #include <type_traits>
 
+#include <clean-core/constant_function.hh>
 #include <clean-core/enable_if.hh>
 #include <clean-core/forward.hh>
+#include <clean-core/identity.hh>
 #include <clean-core/is_range.hh>
 #include <clean-core/iterator.hh>
 #include <clean-core/move.hh>
-
-#include <clean-ranges/algorithms/reduce.hh>
-#include <clean-ranges/algorithms/single.hh>
-#include <clean-ranges/algorithms/sum.hh>
 
 namespace cr
 {
@@ -21,6 +19,10 @@ namespace cr
  * NOTE: ContainerT can be a reference (making this a view)
  *                  or a value (making this owning)
  *       const-ness should be shown in ContainerT, not "const smart_range"
+ *
+ * IMPORTANT: to use the algorithms, either
+ *            #include <clean-ranges/algorithms/MY_SPECIFIC_ALGO.hh> or
+ *            #include <clean-ranges/algorithms.hh>
  *
  * TODO: how to extend smart_range? maybe via inheritance and CRTP?
  */
@@ -43,26 +45,21 @@ public:
     [[nodiscard]] constexpr auto begin() const { return cc::begin(_container); }
     [[nodiscard]] constexpr auto end() { return cc::end(_container); }
     [[nodiscard]] constexpr auto end() const { return cc::end(_container); }
-    [[nodiscard]] constexpr decltype(auto) container() { return _container; }
-    [[nodiscard]] constexpr decltype(auto) container() const { return _container; }
+    [[nodiscard]] constexpr decltype(auto) container() & { return _container; }
+    [[nodiscard]] constexpr decltype(auto) container() const& { return _container; }
+    [[nodiscard]] constexpr decltype(auto) container() && { return cc::move(_container); }
+    [[nodiscard]] constexpr decltype(auto) container() const&& { return _container; }
 
     // algorithms
 public:
     template <class MapF = cc::identity>
-    [[nodiscard]] constexpr auto sum(MapF&& f = {})
-    {
-        return cr::sum(_container, cc::forward<MapF>(f));
-    }
+    [[nodiscard]] constexpr auto sum(MapF&& f = {});
+
     template <class Op, class MapF = cc::identity>
-    [[nodiscard]] constexpr auto reduce(Op&& op, MapF&& f = {})
-    {
-        return cr::reduce(_container, cc::forward<Op>(op), cc::forward<MapF>(f));
-    }
+    [[nodiscard]] constexpr auto reduce(Op&& op, MapF&& f = {});
+
     template <class Predicate = cc::constant_function<true>>
-    [[nodiscard]] constexpr decltype(auto) single(Predicate&& predicate = {})
-    {
-        return cr::single(_container, cc::forward<Predicate>(predicate));
-    }
+    [[nodiscard]] constexpr decltype(auto) single(Predicate&& predicate = {});
 
 private:
     ContainerT _container;

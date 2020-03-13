@@ -1,0 +1,4 @@
+#ifndef UNBOUNDED_RANGE_HH
+#define UNBOUNDED_RANGE_HH
+
+#endif // UNBOUNDED_RANGE_HH

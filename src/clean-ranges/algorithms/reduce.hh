@@ -5,6 +5,7 @@
 #include <clean-core/iterator.hh>
 
 #include <clean-ranges/detail/call.hh>
+#include <clean-ranges/smart_range.hh>
 
 namespace cr
 {
@@ -39,5 +40,13 @@ template <class Range, class Op, class MapF = cc::identity>
     }
 
     return s;
+}
+
+// [smart_range implementation]
+template <class ContainerT>
+template <class Op, class MapF>
+constexpr auto smart_range<ContainerT>::reduce(Op&& op, MapF&& f)
+{
+    return cr::reduce(_container, op, f);
 }
 }

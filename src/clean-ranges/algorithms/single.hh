@@ -5,6 +5,7 @@
 #include <clean-core/iterator.hh>
 
 #include <clean-ranges/detail/call.hh>
+#include <clean-ranges/smart_range.hh>
 
 namespace cr
 {
@@ -41,5 +42,13 @@ template <class Range, class Predicate = cc::constant_function<true>>
     }
 
     CC_UNREACHABLE("no element satisfying the predicate found");
+}
+
+// [smart_range implementation]
+template <class ContainerT>
+template <class Predicate>
+constexpr decltype(auto) smart_range<ContainerT>::single(Predicate&& predicate)
+{
+    return cr::single(_container, predicate);
 }
 }

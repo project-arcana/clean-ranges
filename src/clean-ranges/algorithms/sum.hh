@@ -6,6 +6,7 @@
 
 #include <clean-ranges/detail/call.hh>
 #include <clean-ranges/detail/type_or.hh>
+#include <clean-ranges/smart_range.hh>
 
 namespace cr
 {
@@ -33,5 +34,13 @@ template <class AccumT = void, class Range, class MapF = cc::identity>
     }
 
     return s;
+}
+
+// [smart_range implementation]
+template <class ContainerT>
+template <class MapF>
+constexpr auto smart_range<ContainerT>::sum(MapF&& f)
+{
+    return cr::sum(_container, f);
 }
 }
