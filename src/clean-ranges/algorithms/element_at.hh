@@ -13,7 +13,7 @@ namespace cr
 /// NOTE: requires at least "idx + 1" many elements
 /// Complexity: O(idx)
 template <class Range>
-[[nodiscard]] constexpr decltype(auto) n_th(Range&& range, size_t idx)
+[[nodiscard]] constexpr decltype(auto) element_at(Range&& range, size_t idx)
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
@@ -35,7 +35,7 @@ template <class Range>
 /// NOTE: preserves value categories
 /// Complexity: O(idx)
 template <class Range, class T>
-[[nodiscard]] constexpr decltype(auto) n_th_or(Range&& range, size_t idx, T&& value)
+[[nodiscard]] constexpr decltype(auto) element_at_or(Range&& range, size_t idx, T&& value)
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
@@ -56,14 +56,14 @@ template <class Range, class T>
 
 // [smart_range implementation]
 template <class ContainerT>
-constexpr decltype(auto) smart_range<ContainerT>::n_th(size_t idx)
+constexpr decltype(auto) smart_range<ContainerT>::element_at(size_t idx)
 {
-    return cr::n_th(_container, idx);
+    return cr::element_at(_container, idx);
 }
 template <class ContainerT>
 template <class T>
-constexpr decltype(auto) smart_range<ContainerT>::n_th_or(size_t idx, T&& value)
+constexpr decltype(auto) smart_range<ContainerT>::element_at_or(size_t idx, T&& value)
 {
-    return cr::n_th_or(_container, idx, cc::forward<T>(value));
+    return cr::element_at_or(_container, idx, cc::forward<T>(value));
 }
 }

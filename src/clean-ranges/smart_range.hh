@@ -61,9 +61,9 @@ public:
     template <class Predicate = cc::constant_function<true>>
     [[nodiscard]] constexpr decltype(auto) single(Predicate&& predicate = {});
 
-    [[nodiscard]] constexpr decltype(auto) n_th(size_t idx);
+    [[nodiscard]] constexpr decltype(auto) element_at(size_t idx);
     template <class T>
-    [[nodiscard]] constexpr decltype(auto) n_th_or(size_t idx, T&& value);
+    [[nodiscard]] constexpr decltype(auto) element_at_or(size_t idx, T&& value);
 
 private:
     ContainerT _container;
