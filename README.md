@@ -76,17 +76,11 @@ Algorithms:
 * is_prefix / is_suffix / startswith / endswith / is_subrange
 * 3way comp, lexicographic
 * find_it, find_opt
+* cast_to
 
 Algorithms that are unclear how to implement (for now):
 
 * n_th_last
-
-Built-in ranges:
-
-* from-to (cr::bounded_range)
-* infinite ranges (cr::unbounded_range)
-* iterator pairs (more general A and B)
-* from function
 
 Smart-range features:
 

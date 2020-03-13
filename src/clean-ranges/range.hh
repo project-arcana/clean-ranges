@@ -2,6 +2,10 @@
 
 #include <initializer_list>
 
+#include <clean-core/has_operator.hh>
+
+#include <clean-ranges/ranges/bounded_range.hh>
+#include <clean-ranges/ranges/unbounded_range.hh>
 #include <clean-ranges/smart_range.hh>
 
 namespace cr
@@ -27,16 +31,16 @@ template <class T>
 template <class EndT, cc::enable_if<std::is_integral_v<EndT>> = true>
 [[nodiscard]] constexpr auto range(EndT&& end_exclusive)
 {
-    // TODO
+    return cr::smart_range(cr::detail::bounded_range(EndT(), end_exclusive, cr::detail::pre_increment{}));
 }
 
 /// returns a smart_range that iterates from start..end (exclusive)
 /// using `++v` to get to the next element
 /// if `*v` is a valid expression, then it is returned, otherwise `v` directly (proper behavior on iterators)
 template <class StartT, class EndT>
-[[nodiscard]] constexpr auto range(StartT&& start, EndT&& end)
+[[nodiscard]] constexpr auto range(StartT&& start, EndT&& end_exclusive)
 {
-    // TODO
+    return cr::smart_range(cr::detail::bounded_range(start, end_exclusive, cr::detail::pre_increment{}));
 }
 /// returns a smart_range that iterates from start..end (exclusive)
 /// to get to the next value, the following expressions are used (priority top-down):
@@ -44,19 +48,20 @@ template <class StartT, class EndT>
 ///   `v = inc(v)`
 ///   `inc(v)`
 /// if `*v` is a valid expression, then it is returned, otherwise `v` directly (proper behavior on iterators)
+/// NOTE: the range runs while `start != end`, thus `cr::range(5, 10, 2)` is an infinite loop
 template <class StartT, class EndT, class IncT>
-[[nodiscard]] constexpr auto range(StartT&& start, EndT&& end, IncT&& inc)
+[[nodiscard]] constexpr auto range(StartT&& start, EndT&& end_exclusive, IncT&& inc)
 {
-    // TODO
+    return cr::smart_range(cr::detail::bounded_range(start, end_exclusive, cr::detail::get_inc_class_for<StartT>(cc::forward<IncT>(inc))));
 }
 
 /// returns a smart_range that iterates endlessly from the start value
 /// using `++v` to get to the next element
 /// if `*v` is a valid expression, then it is returned, otherwise `v` directly (proper behavior on iterators)
-template <class StartT, class EndT>
+template <class StartT>
 [[nodiscard]] constexpr auto inf_range(StartT&& start)
 {
-    // TODO
+    return cr::smart_range(cr::detail::unbounded_range(start, cr::detail::pre_increment{}));
 }
 /// returns a smart_range that iterates endlessly from the start value
 /// to get to the next value, the following expressions are used (priority top-down):
@@ -64,9 +69,9 @@ template <class StartT, class EndT>
 ///   `v = inc(v)`
 ///   `inc(v)`
 /// if `*v` is a valid expression, then it is returned, otherwise `v` directly (proper behavior on iterators)
-template <class StartT, class EndT, class IncT>
+template <class StartT, class IncT>
 [[nodiscard]] constexpr auto inf_range(StartT&& start, IncT&& inc)
 {
-    // TODO
+    return cr::smart_range(cr::detail::unbounded_range(start, cr::detail::get_inc_class_for<StartT>(cc::forward<IncT>(inc))));
 }
 }

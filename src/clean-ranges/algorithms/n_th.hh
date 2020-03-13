@@ -5,6 +5,7 @@
 #include <clean-core/iterator.hh>
 
 #include <clean-ranges/detail/call.hh>
+#include <clean-ranges/smart_range.hh>
 
 namespace cr
 {
@@ -51,5 +52,18 @@ template <class Range, class T>
     }
 
     return static_cast<R>(cc::forward<T>(value));
+}
+
+// [smart_range implementation]
+template <class ContainerT>
+constexpr decltype(auto) smart_range<ContainerT>::n_th(size_t idx)
+{
+    return cr::n_th(_container, idx);
+}
+template <class ContainerT>
+template <class T>
+constexpr decltype(auto) smart_range<ContainerT>::n_th_or(size_t idx, T&& value)
+{
+    return cr::n_th_or(_container, idx, cc::forward<T>(value));
 }
 }
