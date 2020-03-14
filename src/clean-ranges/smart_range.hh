@@ -60,6 +60,19 @@ public:
     template <class MapF = cc::identity>
     [[nodiscard]] constexpr auto average(MapF&& f = {});
 
+    template <class MapF = cc::identity>
+    [[nodiscard]] constexpr auto min(MapF&& f = {});
+    template <class KeyF>
+    [[nodiscard]] constexpr auto min_by(KeyF&& key);
+    template <class MapF = cc::identity>
+    [[nodiscard]] constexpr auto max(MapF&& f = {});
+    template <class KeyF>
+    [[nodiscard]] constexpr auto max_by(KeyF&& key);
+    template <class MapF = cc::identity>
+    [[nodiscard]] constexpr auto minmax(MapF&& f = {});
+    template <class KeyF>
+    [[nodiscard]] constexpr auto minmax_by(KeyF&& key);
+
     template <class Op, class MapF = cc::identity>
     [[nodiscard]] constexpr auto reduce(Op&& op, MapF&& f = {});
 

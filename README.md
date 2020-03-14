@@ -73,6 +73,7 @@ Algorithms:
 * is_prefix / is_suffix / startswith / endswith / is_subrange
 * 3way comp, lexicographic
 * find_it, find_opt
+* "is same value"
 
 Algorithms that are unclear how to implement (for now):
 

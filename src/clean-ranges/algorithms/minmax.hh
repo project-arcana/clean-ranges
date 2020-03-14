@@ -7,6 +7,7 @@
 #include <clean-core/move.hh>
 
 #include <clean-ranges/detail/call.hh>
+#include <clean-ranges/smart_range.hh>
 
 // TODO: custom comparator versions?
 
@@ -369,5 +370,43 @@ template <class Range, class KeyF>
 
         return minmax_t<decltype(*it)>{*min_it, *max_it};
     }
+}
+
+// [smart_range implementation]
+template <class ContainerT>
+template <class MapF>
+constexpr auto smart_range<ContainerT>::min(MapF&& f)
+{
+    return cr::min(_container, f);
+}
+template <class ContainerT>
+template <class KeyF>
+constexpr auto smart_range<ContainerT>::min_by(KeyF&& key)
+{
+    return cr::min_by(_container, key);
+}
+template <class ContainerT>
+template <class MapF>
+constexpr auto smart_range<ContainerT>::max(MapF&& f)
+{
+    return cr::max(_container, f);
+}
+template <class ContainerT>
+template <class KeyF>
+constexpr auto smart_range<ContainerT>::max_by(KeyF&& key)
+{
+    return cr::max_by(_container, key);
+}
+template <class ContainerT>
+template <class MapF>
+constexpr auto smart_range<ContainerT>::minmax(MapF&& f)
+{
+    return cr::minmax(_container, f);
+}
+template <class ContainerT>
+template <class KeyF>
+constexpr auto smart_range<ContainerT>::minmax_by(KeyF&& key)
+{
+    return cr::minmax_by(_container, key);
 }
 }
