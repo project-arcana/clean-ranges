@@ -27,3 +27,4 @@
 #include <clean-ranges/algorithms/sum.hh>
 #include <clean-ranges/algorithms/to.hh>
 #include <clean-ranges/algorithms/where.hh>
+#include <clean-ranges/algorithms/zip.hh>

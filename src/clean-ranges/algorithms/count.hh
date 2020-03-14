@@ -6,6 +6,7 @@
 #include <clean-core/iterator.hh>
 
 #include <clean-ranges/detail/call.hh>
+#include <clean-ranges/smart_range.hh>
 
 namespace cr
 {
@@ -60,5 +61,24 @@ template <class Range, class Predicate>
         ++idx;
     }
     return cnt;
+}
+
+// [smart_range implementation]
+template <class ContainerT>
+constexpr size_t smart_range<ContainerT>::count()
+{
+    return cr::count(_container);
+}
+template <class ContainerT>
+template <class T>
+constexpr size_t smart_range<ContainerT>::count(T const& v)
+{
+    return cr::count(_container, v);
+}
+template <class ContainerT>
+template <class Predicate>
+constexpr size_t smart_range<ContainerT>::count_if(Predicate&& predicate)
+{
+    return cr::count_if(_container, cc::forward<Predicate>(predicate));
 }
 }

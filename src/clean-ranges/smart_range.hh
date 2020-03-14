@@ -60,6 +60,12 @@ public:
     template <class Op, class MapF = cc::identity>
     [[nodiscard]] constexpr auto reduce(Op&& op, MapF&& f = {});
 
+    [[nodiscard]] constexpr size_t count();
+    template <class T>
+    [[nodiscard]] constexpr size_t count(T const& v);
+    template <class Predicate = cc::constant_function<true>>
+    [[nodiscard]] constexpr size_t count_if(Predicate&& predicate = {});
+
     template <class Predicate = cc::constant_function<true>>
     [[nodiscard]] constexpr decltype(auto) single(Predicate&& predicate = {});
 
@@ -84,6 +90,9 @@ public:
 
     template <class T>
     constexpr void fill(T const& value);
+
+    template <class Range, class... Ranges>
+    [[nodiscard]] constexpr auto zip(Range&& range, Ranges&&... ranges);
 
 private:
     ContainerT _container;
