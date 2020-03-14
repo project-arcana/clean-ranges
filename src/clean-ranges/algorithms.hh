@@ -9,6 +9,7 @@
 #include <clean-ranges/algorithms/cast_to.hh>
 #include <clean-ranges/algorithms/collect.hh>
 #include <clean-ranges/algorithms/compare.hh>
+#include <clean-ranges/algorithms/concat.hh>
 #include <clean-ranges/algorithms/contains.hh>
 #include <clean-ranges/algorithms/copy.hh>
 #include <clean-ranges/algorithms/count.hh>

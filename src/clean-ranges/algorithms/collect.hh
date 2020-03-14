@@ -5,6 +5,7 @@
 #include <clean-core/priority_tag.hh>
 
 #include <clean-ranges/detail/call.hh>
+#include <clean-ranges/smart_range.hh>
 
 namespace cr
 {
@@ -69,5 +70,13 @@ constexpr void collect(Range&& range, Container& container, MapF&& f = {})
         ++it;
         ++idx;
     }
+}
+
+// [smart_range implementation]
+template <class ContainerT>
+template <class Container, class MapF>
+constexpr void smart_range<ContainerT>::collect(Container& container, MapF&& f)
+{
+    cr::collect(_container, container, cc::forward<MapF>(f));
 }
 }

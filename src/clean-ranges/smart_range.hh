@@ -93,6 +93,15 @@ public:
 
     template <class Range, class... Ranges>
     [[nodiscard]] constexpr auto zip(Range&& range, Ranges&&... ranges);
+    template <class Range, class... Ranges>
+    [[nodiscard]] constexpr auto concat(Range&& range, Ranges&&... ranges);
+
+    template <class Container, class MapF = cc::identity>
+    constexpr void collect(Container& container, MapF&& f = {});
+    template <template <class...> class ContainerTemplate, class MapF = cc::identity>
+    [[nodiscard]] constexpr auto to(MapF&& f = {});
+    template <class Container, class MapF = cc::identity>
+    [[nodiscard]] constexpr auto to(MapF&& f = {});
 
 private:
     ContainerT _container;

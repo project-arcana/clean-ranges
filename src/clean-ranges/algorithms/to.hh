@@ -23,4 +23,18 @@ template <class Container, class Range, class MapF = cc::identity>
     cr::collect(cc::forward<Range>(range), container, cc::forward<MapF>(f));
     return container;
 }
+
+// [smart_range implementation]
+template <class ContainerT>
+template <template <class...> class ContainerTemplate, class MapF>
+constexpr auto smart_range<ContainerT>::to(MapF&& f)
+{
+    return cr::to<ContainerTemplate>(_container, cc::forward<MapF>(f));
+}
+template <class ContainerT>
+template <class Container, class MapF>
+constexpr auto smart_range<ContainerT>::to(MapF&& f)
+{
+    return cr::to<Container>(_container, cc::forward<MapF>(f));
+}
 }
