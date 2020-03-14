@@ -19,12 +19,12 @@ constexpr auto impl_obj_member_call(F&& fun, Arg&& arg, cc::priority_tag<0>) -> 
 }
 
 template <class F, class Arg>
-constexpr auto impl_fun_member_call(size_t idx, F&& fun, Arg&& arg, cc::priority_tag<3>) -> decltype((arg.*fun)())
+constexpr auto impl_fun_member_call(size_t, F&& fun, Arg&& arg, cc::priority_tag<3>) -> decltype((arg.*fun)())
 {
     return (arg.*fun)();
 }
 template <class F, class Arg>
-constexpr auto impl_fun_member_call(size_t idx, F&& fun, Arg&& arg, cc::priority_tag<2>) -> decltype(((*arg).*fun)())
+constexpr auto impl_fun_member_call(size_t, F&& fun, Arg&& arg, cc::priority_tag<2>) -> decltype(((*arg).*fun)())
 {
     return ((*arg).*fun)();
 }
@@ -40,7 +40,7 @@ constexpr auto impl_fun_member_call(size_t idx, F&& fun, Arg&& arg, cc::priority
 }
 
 template <class F, class Arg>
-constexpr auto impl_fun_call(size_t idx, F&& fun, Arg&& arg, cc::priority_tag<1>) -> decltype(fun(cc::forward<Arg>(arg)))
+constexpr auto impl_fun_call(size_t, F&& fun, Arg&& arg, cc::priority_tag<1>) -> decltype(fun(cc::forward<Arg>(arg)))
 {
     return fun(cc::forward<Arg>(arg));
 }
