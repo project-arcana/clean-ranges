@@ -52,6 +52,9 @@ public:
 
     // algorithms
 public:
+    [[nodiscard]] constexpr bool is_empty() { return !(this->begin() != this->end()); }
+    [[nodiscard]] constexpr bool is_non_empty() { return this->begin() != this->end(); }
+
     template <class MapF = cc::identity>
     [[nodiscard]] constexpr auto sum(MapF&& f = {});
     template <class MapF = cc::identity>
@@ -72,6 +75,18 @@ public:
     [[nodiscard]] constexpr decltype(auto) element_at(size_t idx);
     template <class T>
     [[nodiscard]] constexpr decltype(auto) element_at_or(size_t idx, T&& value);
+
+    [[nodiscard]] constexpr auto drop(size_t cnt);
+    template <class Predicate>
+    [[nodiscard]] constexpr auto drop_while(Predicate&& pred);
+    template <class Predicate>
+    [[nodiscard]] constexpr auto drop_while_not(Predicate&& pred);
+
+    [[nodiscard]] constexpr auto take(size_t cnt);
+    template <class Predicate>
+    [[nodiscard]] constexpr auto take_while(Predicate&& pred);
+    template <class Predicate>
+    [[nodiscard]] constexpr auto take_while_not(Predicate&& pred);
 
     template <class Predicate>
     [[nodiscard]] constexpr auto where(Predicate&& pred);

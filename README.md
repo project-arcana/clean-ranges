@@ -53,15 +53,13 @@ foo& f = cr::first(foos, &foo::is_above_idx);
 
 Algorithms:
 
-* drop_first / _last / drop_while
 * median
 * mode
 * percentile
-* map
 * indexed
 * flatten
 * ordered_by / sort (inplace)
-* zip / unzip
+* unzip
 * windowed / chunked / pairwise
 * reverse
 * apply / transform
@@ -75,15 +73,15 @@ Algorithms:
 * is_prefix / is_suffix / startswith / endswith / is_subrange
 * 3way comp, lexicographic
 * find_it, find_opt
-* cast_to
-* concat
 
 Algorithms that are unclear how to implement (for now):
 
 * n_th_last
+* drop_last
 
 Smart-range features:
 
+* have all algorithms in smart_range as well
 * operator>> and << with callables (basically foreach, but also allows empty arg)
 
 Optimizations:
@@ -95,6 +93,7 @@ Optimizations:
 QoL:
 
 * xyz vs xyz'ed versions (e.g. sort vs sorted, reverse vs reversed)
+* rethink const-correctness in smart_range
 
 Extensibility:
 
