@@ -6,6 +6,7 @@
 #include <clean-ranges/algorithms/all.hh>
 #include <clean-ranges/algorithms/any.hh>
 #include <clean-ranges/algorithms/average.hh>
+#include <clean-ranges/algorithms/cast_to.hh>
 #include <clean-ranges/algorithms/collect.hh>
 #include <clean-ranges/algorithms/compare.hh>
 #include <clean-ranges/algorithms/contains.hh>

@@ -6,6 +6,7 @@
 
 #include <clean-ranges/detail/call.hh>
 #include <clean-ranges/detail/type_or.hh>
+#include <clean-ranges/smart_range.hh>
 
 namespace cr
 {
@@ -36,5 +37,13 @@ template <class CountT = void, class Range, class MapF = cc::identity>
     }
 
     return s / cnt;
+}
+
+// [smart_range implementation]
+template <class ContainerT>
+template <class MapF>
+constexpr auto smart_range<ContainerT>::average(MapF&& f)
+{
+    return cr::average(_container, f);
 }
 }

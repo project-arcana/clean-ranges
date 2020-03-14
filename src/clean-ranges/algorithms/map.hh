@@ -7,8 +7,6 @@
 #include <clean-ranges/detail/call.hh>
 #include <clean-ranges/smart_range.hh>
 
-// TODO: map and map_where
-
 namespace cr
 {
 namespace detail

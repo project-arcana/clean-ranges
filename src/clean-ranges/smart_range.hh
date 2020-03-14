@@ -54,6 +54,8 @@ public:
 public:
     template <class MapF = cc::identity>
     [[nodiscard]] constexpr auto sum(MapF&& f = {});
+    template <class MapF = cc::identity>
+    [[nodiscard]] constexpr auto average(MapF&& f = {});
 
     template <class Op, class MapF = cc::identity>
     [[nodiscard]] constexpr auto reduce(Op&& op, MapF&& f = {});
@@ -76,6 +78,9 @@ public:
     [[nodiscard]] constexpr auto map_where(MapF&& f, Predicate&& pred);
     template <class MapF, class Predicate>
     [[nodiscard]] constexpr auto map_where_not(MapF&& f, Predicate&& pred);
+
+    template <class T>
+    [[nodiscard]] constexpr auto cast_to();
 
     template <class T>
     constexpr void fill(T const& value);
