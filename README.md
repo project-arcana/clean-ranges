@@ -74,6 +74,7 @@ Algorithms:
 * 3way comp, lexicographic
 * find_it, find_opt
 * "is same value"
+* "deref_valid"? (basically `where(x => bool(x)).map(x => *x)`, unpacking ptr, optional)
 
 Algorithms that are unclear how to implement (for now):
 
@@ -103,3 +104,7 @@ Extensibility:
 Benchmarks:
 
 * check if `idx` is properly optimized out if not used
+
+Testing:
+
+* verify that functions and ranges are not copied unnecessarily
