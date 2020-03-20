@@ -3,6 +3,8 @@
 #include <clean-core/iterator.hh>
 #include <clean-core/move.hh>
 
+#include <clean-ranges/smart_range.hh>
+
 namespace cr
 {
 /// Goes over both ranges simultaneously and copies elements from rhs to lhs
@@ -43,5 +45,31 @@ constexpr void move_from(LhsRange&& lhs, RhsRange const& rhs)
         ++itA;
         ++itB;
     }
+}
+
+// [smart_range implementation]
+template <class ContainerT>
+template <class RhsRange>
+constexpr void smart_range<ContainerT>::copy_to(RhsRange&& range)
+{
+    cr::copy_from(range, _container);
+}
+template <class ContainerT>
+template <class RhsRange>
+constexpr void smart_range<ContainerT>::copy_from(RhsRange&& range)
+{
+    cr::copy_from(_container, range);
+}
+template <class ContainerT>
+template <class RhsRange>
+constexpr void smart_range<ContainerT>::move_to(RhsRange&& range)
+{
+    cr::move_from(range, _container);
+}
+template <class ContainerT>
+template <class RhsRange>
+constexpr void smart_range<ContainerT>::move_from(RhsRange&& range)
+{
+    cr::move_from(_container, range);
 }
 }

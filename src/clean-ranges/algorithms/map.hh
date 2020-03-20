@@ -14,7 +14,7 @@ namespace detail
 template <class ItT, class EndT, class MapF>
 struct mapped_iterator
 {
-    mapped_iterator(ItT it, EndT end, MapF mapF) : _it(cc::move(it)), _end(cc::move(end)), _mapF(cc::move(mapF)) {}
+    mapped_iterator(ItT it, EndT end, MapF& mapF) : _it(cc::move(it)), _end(cc::move(end)), _mapF(mapF) {}
 
     constexpr decltype(auto) operator*() { return cr::detail::call(_idx, _mapF, *_it); }
     constexpr void operator++()
@@ -28,7 +28,7 @@ private:
     size_t _idx = 0;
     ItT _it;
     EndT _end;
-    MapF _mapF;
+    MapF& _mapF;
 };
 
 template <class Range, class MapF>
@@ -44,8 +44,8 @@ struct mapped_range
 template <class ItT, class EndT, class MapF, class Predicate, class ExpectT>
 struct mapped_filtered_iterator
 {
-    mapped_filtered_iterator(ItT it, EndT end, MapF mapF, Predicate pred, ExpectT)
-      : _it(cc::move(it)), _end(cc::move(end)), _mapF(cc::move(mapF)), _pred(cc::move(pred))
+    mapped_filtered_iterator(ItT it, EndT end, MapF& mapF, Predicate& pred, ExpectT)
+      : _it(cc::move(it)), _end(cc::move(end)), _mapF(mapF), _pred(pred)
     {
         while (_it != _end && cr::detail::call(_idx, _pred, *_it) != ExpectT::value)
         {
@@ -71,8 +71,8 @@ private:
     size_t _idx = 0;
     ItT _it;
     EndT _end;
-    MapF _mapF;
-    Predicate _pred;
+    MapF& _mapF;
+    Predicate& _pred;
 };
 
 template <class Range, class MapF, class Predicate, class ExpectT>

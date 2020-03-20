@@ -2,9 +2,10 @@
 
 #include <initializer_list>
 
-#include <clean-core/has_operator.hh>
+#include <clean-core/enable_if.hh>
 
 #include <clean-ranges/ranges/bounded_range.hh>
+#include <clean-ranges/ranges/sentinel_range.hh>
 #include <clean-ranges/ranges/unbounded_range.hh>
 #include <clean-ranges/smart_range.hh>
 
@@ -32,6 +33,13 @@ template <class EndT, cc::enable_if<std::is_integral_v<EndT>> = true>
 [[nodiscard]] constexpr auto range(EndT&& end_exclusive)
 {
     return cr::smart_range(cr::detail::bounded_range(EndT(), end_exclusive, cr::detail::pre_increment{}));
+}
+
+/// given an iterator that can compare against cc::sentinel, makes a smart range out of it
+template <class ItT, cc::enable_if<cr::detail::is_sentinel_iterator<ItT>::value> = true>
+[[nodiscard]] constexpr auto range(ItT&& it)
+{
+    return cr::smart_range(cr::detail::sentinel_range(cc::forward<ItT>(it)));
 }
 
 /// returns a smart_range that iterates from start..end (exclusive)

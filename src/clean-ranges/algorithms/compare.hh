@@ -4,6 +4,8 @@
 #include <clean-core/forward.hh>
 #include <clean-core/iterator.hh>
 
+#include <clean-ranges/smart_range.hh>
+
 namespace cr
 {
 /// returns true iff the two ranges contain the same elements in the same order
@@ -37,5 +39,19 @@ template <class LhsRange, class RhsRange, class Comp = cc::equal_to<void>>
 [[nodiscard]] constexpr bool are_not_equal(LhsRange const& lhs, RhsRange const& rhs, Comp&& comp = {})
 {
     return !cr::are_equal(lhs, rhs, cc::forward<Comp>(comp));
+}
+
+// [smart_range implementation]
+template <class ContainerT>
+template <class RhsRange, class Comp>
+[[nodiscard]] constexpr bool smart_range<ContainerT>::is_equal_to(RhsRange const& range, Comp&& comp)
+{
+    return cr::are_equal(_container, range, comp);
+}
+template <class ContainerT>
+template <class RhsRange, class Comp>
+[[nodiscard]] constexpr bool smart_range<ContainerT>::is_not_equal_to(RhsRange const& range, Comp&& comp)
+{
+    return cr::are_equal(_container, range, comp);
 }
 }

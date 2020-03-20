@@ -14,7 +14,7 @@ namespace detail
 template <class ItT, class EndT, class Predicate, class ExpectT>
 struct filtered_iterator
 {
-    filtered_iterator(ItT it, EndT end, Predicate pred, ExpectT) : _it(cc::move(it)), _end(cc::move(end)), _pred(cc::move(pred))
+    filtered_iterator(ItT it, EndT end, Predicate& pred, ExpectT) : _it(cc::move(it)), _end(cc::move(end)), _pred(pred)
     {
         while (_it != _end && cr::detail::call(_idx, _pred, *_it) != ExpectT::value)
         {
@@ -40,7 +40,7 @@ private:
     size_t _idx = 0;
     ItT _it;
     EndT _end;
-    Predicate _pred;
+    Predicate& _pred;
 };
 
 template <class Range, class Predicate, class ExpectT>

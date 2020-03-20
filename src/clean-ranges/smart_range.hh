@@ -3,7 +3,7 @@
 #include <type_traits>
 
 #include <clean-core/constant_function.hh>
-#include <clean-core/enable_if.hh>
+#include <clean-core/equal_to.hh>
 #include <clean-core/forward.hh>
 #include <clean-core/identity.hh>
 #include <clean-core/is_range.hh>
@@ -54,6 +54,11 @@ public:
 public:
     [[nodiscard]] constexpr bool is_empty() { return !(this->begin() != this->end()); }
     [[nodiscard]] constexpr bool is_non_empty() { return this->begin() != this->end(); }
+
+    template <class RhsRange, class Comp = cc::equal_to<void>>
+    [[nodiscard]] constexpr bool is_equal_to(RhsRange const& range, Comp&& comp = {});
+    template <class RhsRange, class Comp = cc::equal_to<void>>
+    [[nodiscard]] constexpr bool is_not_equal_to(RhsRange const& range, Comp&& comp = {});
 
     template <class MapF = cc::identity>
     [[nodiscard]] constexpr auto sum(MapF&& f = {});
@@ -130,6 +135,45 @@ public:
     [[nodiscard]] constexpr auto to(MapF&& f = {});
     template <class Container, class MapF = cc::identity>
     [[nodiscard]] constexpr auto to(MapF&& f = {});
+
+    template <class RhsRange>
+    constexpr void copy_to(RhsRange&& range);
+    template <class RhsRange>
+    constexpr void copy_from(RhsRange&& range);
+    template <class RhsRange>
+    constexpr void move_to(RhsRange&& range);
+    template <class RhsRange>
+    constexpr void move_from(RhsRange&& range);
+
+    // operators
+public:
+    template <class RhsRange, cc::enable_if<cc::is_any_range<RhsRange>> = true>
+    constexpr bool operator==(RhsRange const& rhs) const
+    {
+        auto itA = cc::begin(_container);
+        auto itB = cc::begin(rhs);
+        auto endA = cc::end(_container);
+        auto endB = cc::end(rhs);
+
+        while (itA != endA && itB != endB)
+        {
+            if (*itA != *itB)
+                return false; // found unequal element
+
+            ++itA;
+            ++itB;
+        }
+
+        if (itA != endA || itB != endB)
+            return false; // one range is longer than the other
+
+        return true;
+    }
+    template <class RhsRange, cc::enable_if<cc::is_any_range<RhsRange>> = true>
+    constexpr bool operator!=(RhsRange const& rhs) const
+    {
+        return !this->operator==(rhs);
+    }
 
 private:
     ContainerT _container;
