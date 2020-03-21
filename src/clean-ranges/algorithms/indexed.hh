@@ -9,24 +9,24 @@
 
 namespace cr
 {
-namespace detail
-{
 template <class T>
-struct enumerate_value
+struct indexed_value
 {
     size_t index;
     T value;
 };
 
-template <class ItT, class EndT, class MapF>
-struct enumerate_iterator
+namespace detail
 {
-    enumerate_iterator(ItT it, EndT end, MapF& mapF) : _it(cc::move(it)), _end(cc::move(end)), _mapF(mapF) {}
+template <class ItT, class EndT, class MapF>
+struct indexed_iterator
+{
+    indexed_iterator(ItT it, EndT end, MapF& mapF) : _it(cc::move(it)), _end(cc::move(end)), _mapF(mapF) {}
 
     constexpr decltype(auto) operator*()
     {
         using T = decltype(cr::detail::call(_idx, _mapF, *_it));
-        return enumerate_value<T>{_idx, cr::detail::call(_idx, _mapF, *_it)};
+        return indexed_value<T>{_idx, cr::detail::call(_idx, _mapF, *_it)};
     }
     constexpr void operator++()
     {
@@ -43,10 +43,10 @@ private:
 };
 
 template <class Range, class MapF>
-struct enumerate_range
+struct indexed_range
 {
-    constexpr auto begin() { return enumerate_iterator(cc::begin(range), cc::end(range), mapF); }
-    constexpr auto begin() const { return enumerate_iterator(cc::begin(range), cc::end(range), mapF); }
+    constexpr auto begin() { return indexed_iterator(cc::begin(range), cc::end(range), mapF); }
+    constexpr auto begin() const { return indexed_iterator(cc::begin(range), cc::end(range), mapF); }
     constexpr cc::sentinel end() const { return {}; }
 
     Range range;
@@ -54,18 +54,18 @@ struct enumerate_range
 };
 }
 
-/// returns a new range consisting of {idx, f(e)} for each old element
+/// returns a new range consisting of indexed_value{idx, f(e)} for each element
 template <class Range, class MapF = cc::identity>
-[[nodiscard]] constexpr auto enumerate(Range&& range, MapF&& f = {})
+[[nodiscard]] constexpr auto indexed(Range&& range, MapF&& f = {})
 {
-    return smart_range<detail::enumerate_range<Range, MapF>>({cc::forward<Range>(range), cc::forward<MapF>(f)});
+    return smart_range<detail::indexed_range<Range, MapF>>({cc::forward<Range>(range), cc::forward<MapF>(f)});
 }
 
 // [smart_range implementation]
 template <class ContainerT>
 template <class MapF>
-constexpr auto smart_range<ContainerT>::enumerate(MapF&& f)
+constexpr auto smart_range<ContainerT>::indexed(MapF&& f)
 {
-    return cr::enumerate(_container, cc::forward<MapF>(f));
+    return cr::indexed(_container, cc::forward<MapF>(f));
 }
 }

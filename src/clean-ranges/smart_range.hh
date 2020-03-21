@@ -133,7 +133,7 @@ public:
     constexpr void fill(T const& value);
     
     template <class MapF = cc::identity>
-    [[nodiscard]] constexpr auto enumerate(MapF&& f = {});
+    [[nodiscard]] constexpr auto indexed(MapF&& f = {});
     template <class Range, class... Ranges>
     [[nodiscard]] constexpr auto zip(Range&& range, Ranges&&... ranges);
     template <class Range, class... Ranges>

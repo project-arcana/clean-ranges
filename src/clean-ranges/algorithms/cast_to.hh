@@ -4,7 +4,6 @@
 #include <clean-core/move.hh>
 #include <clean-core/sentinel.hh>
 
-#include <clean-ranges/detail/call.hh>
 #include <clean-ranges/smart_range.hh>
 
 namespace cr

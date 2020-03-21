@@ -56,7 +56,6 @@ Algorithms:
 * median
 * mode
 * percentile
-* indexed
 * flatten
 * ordered_by / sort (inplace)
 * unzip
@@ -107,4 +106,4 @@ Benchmarks:
 
 Testing:
 
-* verify that functions and ranges are not copied unnecessarily
+* verify that lifetimes are proper
