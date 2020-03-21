@@ -56,6 +56,10 @@ struct concat_range
     {
         return cc::apply([](auto&&... r) { return concat_iterator(cc::tuple(cc::pair(cc::begin(r), cc::end(r))...)); }, ranges);
     }
+    constexpr auto begin() const
+    {
+        return cc::apply([](auto&&... r) { return concat_iterator(cc::tuple(cc::pair(cc::begin(r), cc::end(r))...)); }, ranges);
+    }
     constexpr cc::sentinel end() const { return {}; }
 
     cc::tuple<Ranges...> ranges;

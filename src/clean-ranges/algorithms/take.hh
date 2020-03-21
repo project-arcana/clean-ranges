@@ -33,6 +33,7 @@ template <class Range>
 struct take_range
 {
     constexpr auto begin() { return take_iterator(cc::begin(range), cc::end(range), cnt); }
+    constexpr auto begin() const { return take_iterator(cc::begin(range), cc::end(range), cnt); }
     constexpr cc::sentinel end() const { return {}; }
 
     Range range;
@@ -42,7 +43,7 @@ struct take_range
 template <class ItT, class EndT, class Predicate, class Expected>
 struct take_while_iterator
 {
-    take_while_iterator(ItT it, EndT end, Predicate pred, Expected) : _it(cc::move(it)), _end(cc::move(end)), _pred(cc::move(pred)) {}
+    take_while_iterator(ItT it, EndT end, Predicate& pred, Expected) : _it(cc::move(it)), _end(cc::move(end)), _pred(pred) {}
 
     constexpr decltype(auto) operator*() { return *_it; }
     constexpr void operator++()
@@ -56,13 +57,14 @@ private:
     size_t _idx = 0;
     ItT _it;
     EndT _end;
-    Predicate _pred;
+    Predicate& _pred;
 };
 
 template <class Range, class Predicate, class Expected>
 struct take_while_range
 {
     constexpr auto begin() { return take_while_iterator(cc::begin(range), cc::end(range), static_cast<Predicate&>(pred), Expected{}); }
+    constexpr auto begin() const { return take_while_iterator(cc::begin(range), cc::end(range), static_cast<Predicate&>(pred), Expected{}); }
     constexpr cc::sentinel end() const { return {}; }
 
     Range range;

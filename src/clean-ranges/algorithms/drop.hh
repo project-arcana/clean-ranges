@@ -35,6 +35,7 @@ template <class Range>
 struct drop_range
 {
     constexpr auto begin() { return drop_iterator(cc::begin(range), cc::end(range), cnt); }
+    constexpr auto begin() const { return drop_iterator(cc::begin(range), cc::end(range), cnt); }
     constexpr cc::sentinel end() const { return {}; }
 
     Range range;
@@ -68,6 +69,7 @@ template <class Range, class Predicate, class Expected>
 struct drop_while_range
 {
     constexpr auto begin() { return drop_while_iterator(cc::begin(range), cc::end(range), pred, Expected{}); }
+    constexpr auto begin() const { return drop_while_iterator(cc::begin(range), cc::end(range), pred, Expected{}); }
     constexpr cc::sentinel end() const { return {}; }
 
     Range range;

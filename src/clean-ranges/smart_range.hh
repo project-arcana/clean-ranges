@@ -52,8 +52,8 @@ public:
 
     // algorithms
 public:
-    [[nodiscard]] constexpr bool is_empty() { return !(this->begin() != this->end()); }
-    [[nodiscard]] constexpr bool is_non_empty() { return this->begin() != this->end(); }
+    [[nodiscard]] constexpr bool is_empty() const { return !(this->begin() != this->end()); }
+    [[nodiscard]] constexpr bool is_non_empty() const { return this->begin() != this->end(); }
 
     template <class RhsRange, class Comp = cc::equal_to<void>>
     [[nodiscard]] constexpr bool is_equal_to(RhsRange const& range, Comp&& comp = {});

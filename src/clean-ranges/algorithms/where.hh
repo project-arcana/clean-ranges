@@ -47,6 +47,7 @@ template <class Range, class Predicate, class ExpectT>
 struct filtered_range
 {
     constexpr auto begin() { return filtered_iterator(cc::begin(range), cc::end(range), static_cast<Predicate&>(pred), ExpectT{}); }
+    constexpr auto begin() const { return filtered_iterator(cc::begin(range), cc::end(range), static_cast<Predicate&>(pred), ExpectT{}); }
     constexpr cc::sentinel end() const { return {}; }
 
     Range range;

@@ -17,10 +17,7 @@ struct cast_iterator
     cast_iterator(ItT it, EndT end) : _it(cc::move(it)), _end(cc::move(end)) {}
 
     constexpr decltype(auto) operator*() { return T(*_it); }
-    constexpr void operator++()
-    {
-        ++_it;
-    }
+    constexpr void operator++() { ++_it; }
     constexpr bool operator!=(cc::sentinel) const { return _it != _end; }
 
 private:
@@ -38,6 +35,7 @@ template <class Range, class T>
 struct cast_range
 {
     constexpr auto begin() { return cr::detail::make_cast_iterator<T>(cc::begin(range), cc::end(range)); }
+    constexpr auto begin() const { return cr::detail::make_cast_iterator<T>(cc::begin(range), cc::end(range)); }
     constexpr cc::sentinel end() const { return {}; }
 
     Range range;
