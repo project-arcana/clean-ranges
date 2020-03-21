@@ -3,6 +3,7 @@
 #include <type_traits>
 
 #include <clean-core/constant_function.hh>
+#include <clean-core/enable_if.hh>
 #include <clean-core/equal_to.hh>
 #include <clean-core/forward.hh>
 #include <clean-core/identity.hh>
@@ -117,6 +118,13 @@ public:
     [[nodiscard]] constexpr auto map_where(MapF&& f, Predicate&& pred);
     template <class MapF, class Predicate>
     [[nodiscard]] constexpr auto map_where_not(MapF&& f, Predicate&& pred);
+    template <class MapF = cc::identity>
+    [[nodiscard]] constexpr auto each(MapF&& f = {});
+    template <class MapF = cc::identity>
+    [[nodiscard]] constexpr auto repeat(MapF&& f = {});
+    [[nodiscard]] constexpr auto times(size_t cnt);
+    template <class T>
+    constexpr auto pad_with(T&& value);
 
     template <class T>
     [[nodiscard]] constexpr auto cast_to();

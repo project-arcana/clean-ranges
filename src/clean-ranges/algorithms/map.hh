@@ -34,8 +34,8 @@ private:
 template <class Range, class MapF>
 struct mapped_range
 {
-    constexpr auto begin() { return mapped_iterator(cc::begin(range), cc::end(range), static_cast<MapF&>(mapF)); }
-    constexpr auto begin() const { return mapped_iterator(cc::begin(range), cc::end(range), static_cast<MapF&>(mapF)); }
+    constexpr auto begin() { return mapped_iterator(cc::begin(range), cc::end(range), mapF); }
+    constexpr auto begin() const { return mapped_iterator(cc::begin(range), cc::end(range), mapF); }
     constexpr cc::sentinel end() const { return {}; }
 
     Range range;
@@ -79,14 +79,8 @@ private:
 template <class Range, class MapF, class Predicate, class ExpectT>
 struct mapped_filtered_range
 {
-    constexpr auto begin()
-    {
-        return mapped_filtered_iterator(cc::begin(range), cc::end(range), static_cast<MapF&>(mapF), static_cast<Predicate&>(pred), ExpectT{});
-    }
-    constexpr auto begin() const
-    {
-        return mapped_filtered_iterator(cc::begin(range), cc::end(range), static_cast<MapF&>(mapF), static_cast<Predicate&>(pred), ExpectT{});
-    }
+    constexpr auto begin() { return mapped_filtered_iterator(cc::begin(range), cc::end(range), mapF, pred, ExpectT{}); }
+    constexpr auto begin() const { return mapped_filtered_iterator(cc::begin(range), cc::end(range), mapF, pred, ExpectT{}); }
     constexpr cc::sentinel end() const { return {}; }
 
     Range range;

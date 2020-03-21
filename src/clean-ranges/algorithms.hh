@@ -14,6 +14,7 @@
 #include <clean-ranges/algorithms/copy.hh>
 #include <clean-ranges/algorithms/count.hh>
 #include <clean-ranges/algorithms/drop.hh>
+#include <clean-ranges/algorithms/each.hh>
 #include <clean-ranges/algorithms/element_at.hh>
 #include <clean-ranges/algorithms/empty.hh>
 #include <clean-ranges/algorithms/fill.hh>
@@ -24,10 +25,13 @@
 #include <clean-ranges/algorithms/last.hh>
 #include <clean-ranges/algorithms/map.hh>
 #include <clean-ranges/algorithms/minmax.hh>
+#include <clean-ranges/algorithms/pad_with.hh>
 #include <clean-ranges/algorithms/reduce.hh>
+#include <clean-ranges/algorithms/repeat.hh>
 #include <clean-ranges/algorithms/single.hh>
 #include <clean-ranges/algorithms/sum.hh>
 #include <clean-ranges/algorithms/take.hh>
+#include <clean-ranges/algorithms/times.hh>
 #include <clean-ranges/algorithms/to.hh>
 #include <clean-ranges/algorithms/where.hh>
 #include <clean-ranges/algorithms/zip.hh>
