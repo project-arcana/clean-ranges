@@ -17,6 +17,7 @@
 #include <clean-ranges/algorithms/each.hh>
 #include <clean-ranges/algorithms/element_at.hh>
 #include <clean-ranges/algorithms/empty.hh>
+#include <clean-ranges/algorithms/enumerate.hh>
 #include <clean-ranges/algorithms/fill.hh>
 #include <clean-ranges/algorithms/find.hh>
 #include <clean-ranges/algorithms/first.hh>
