@@ -126,6 +126,9 @@ public:
     template <class T>
     constexpr auto pad_with(T&& value);
 
+    template <class... MapF>
+    [[nodiscard]] constexpr auto flatmap(MapF&&... maps);
+
     template <class T>
     [[nodiscard]] constexpr auto cast_to();
 
