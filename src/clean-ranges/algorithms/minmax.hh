@@ -50,33 +50,38 @@ template <class Range, class MapF = cc::identity>
     auto it = cc::begin(range);
     auto end = cc::end(range);
     CC_ASSERT(it != end && "only non-empty ranges supported");
+    size_t idx = 0;
 
-    using T = decltype(f(*it));
+    using T = decltype(cr::detail::call(idx, f, *it));
     using R = decltype(detail_cr::impl_min(std::declval<T>(), std::declval<T>(), cc::priority_tag<1>{}));
 
     if constexpr (std::is_lvalue_reference_v<R> && std::is_lvalue_reference_v<T>)
     {
         static_assert(std::is_same_v<R, T>, "min must return compatible type");
-        std::remove_reference_t<R>* min_v = &f(*it);
+        std::remove_reference_t<R>* min_v = &cr::detail::call(idx, f, *it);
         ++it;
+        ++idx;
 
         while (it != end)
         {
-            min_v = &detail_cr::impl_min(*min_v, f(*it), cc::priority_tag<1>{});
+            min_v = &detail_cr::impl_min(*min_v, cr::detail::call(idx, f, *it), cc::priority_tag<1>{});
             ++it;
+            ++idx;
         }
 
         return *min_v;
     }
     else // .. otherwise return by value
     {
-        std::decay_t<T> min_v = f(*it);
+        std::decay_t<T> min_v = cr::detail::call(idx, f, *it);
         ++it;
+        ++idx;
 
         while (it != end)
         {
-            min_v = detail_cr::impl_min(min_v, f(*it), cc::priority_tag<1>{});
+            min_v = detail_cr::impl_min(min_v, cr::detail::call(idx, f, *it), cc::priority_tag<1>{});
             ++it;
+            ++idx;
         }
 
         return min_v;
@@ -96,43 +101,48 @@ template <class Range, class KeyF>
     auto it = cc::begin(range);
     auto end = cc::end(range);
     CC_ASSERT(it != end && "only non-empty ranges supported");
+    size_t idx = 0;
 
-    using T = decltype(key(*it));
+    using T = decltype(cr::detail::call(idx, key, *it));
 
     if constexpr (std::is_lvalue_reference_v<T>)
     {
-        auto min_key = &key(*it);
+        auto min_key = &cr::detail::call(idx, key, *it);
         auto min_it = it;
 
         ++it;
+        ++idx;
         while (it != end)
         {
-            auto k = &key(*it);
+            auto k = &cr::detail::call(idx, key, *it);
             if (*k < *min_key)
             {
                 min_key = k;
                 min_it = it;
             }
             ++it;
+            ++idx;
         }
 
         return *min_it;
     }
     else
     {
-        auto min_key = key(*it);
+        auto min_key = cr::detail::call(idx, key, *it);
         auto min_it = it;
 
         ++it;
+        ++idx;
         while (it != end)
         {
-            auto k = key(*it);
+            auto k = cr::detail::call(idx, key, *it);
             if (k < min_key)
             {
                 min_key = cc::move(k);
                 min_it = it;
             }
             ++it;
+            ++idx;
         }
 
         return *min_it;
@@ -152,19 +162,21 @@ template <class Range, class MapF = cc::identity>
     auto it = cc::begin(range);
     auto end = cc::end(range);
     CC_ASSERT(it != end && "only non-empty ranges supported");
+    size_t idx = 0;
 
-    using T = decltype(f(*it));
+    using T = decltype(cr::detail::call(idx, f, *it));
     using R = decltype(detail_cr::impl_max(std::declval<T>(), std::declval<T>(), cc::priority_tag<1>{}));
 
     if constexpr (std::is_lvalue_reference_v<R> && std::is_lvalue_reference_v<T>)
     {
         static_assert(std::is_same_v<R, T>, "max must return compatible type");
-        std::remove_reference_t<R>* max_v = &f(*it);
+        std::remove_reference_t<R>* max_v = &cr::detail::call(idx, f, *it);
         ++it;
+        ++idx;
 
         while (it != end)
         {
-            max_v = &detail_cr::impl_max(*max_v, f(*it), cc::priority_tag<1>{});
+            max_v = &detail_cr::impl_max(*max_v, cr::detail::call(idx, f, *it), cc::priority_tag<1>{});
             ++it;
         }
 
@@ -172,13 +184,15 @@ template <class Range, class MapF = cc::identity>
     }
     else // .. otherwise return by value
     {
-        std::decay_t<T> max_v = f(*it);
+        std::decay_t<T> max_v = cr::detail::call(idx, f, *it);
         ++it;
+        ++idx;
 
         while (it != end)
         {
-            max_v = detail_cr::impl_max(max_v, f(*it), cc::priority_tag<1>{});
+            max_v = detail_cr::impl_max(max_v, cr::detail::call(idx, f, *it), cc::priority_tag<1>{});
             ++it;
+            ++idx;
         }
 
         return max_v;
@@ -198,43 +212,48 @@ template <class Range, class KeyF>
     auto it = cc::begin(range);
     auto end = cc::end(range);
     CC_ASSERT(it != end && "only non-empty ranges supported");
+    size_t idx = 0;
 
-    using T = decltype(key(*it));
+    using T = decltype(cr::detail::call(idx, key, *it));
 
     if constexpr (std::is_lvalue_reference_v<T>)
     {
-        auto max_key = &key(*it);
+        auto max_key = &cr::detail::call(idx, key, *it);
         auto max_it = it;
 
         ++it;
+        ++idx;
         while (it != end)
         {
-            auto k = &key(*it);
+            auto k = &cr::detail::call(idx, key, *it);
             if (*max_key < *k)
             {
                 max_key = k;
                 max_it = it;
             }
             ++it;
+            ++idx;
         }
 
         return *max_it;
     }
     else
     {
-        auto max_key = key(*it);
+        auto max_key = cr::detail::call(idx, key, *it);
         auto max_it = it;
 
         ++it;
+        ++idx;
         while (it != end)
         {
-            auto k = key(*it);
+            auto k = cr::detail::call(idx, key, *it);
             if (max_key < k)
             {
                 max_key = cc::move(k);
                 max_it = it;
             }
             ++it;
+            ++idx;
         }
 
         return *max_it;
@@ -261,8 +280,9 @@ template <class Range, class MapF = cc::identity>
     auto it = cc::begin(range);
     auto end = cc::end(range);
     CC_ASSERT(it != end && "only non-empty ranges supported");
+    size_t idx = 0;
 
-    using T = decltype(f(*it));
+    using T = decltype(cr::detail::call(idx, f, *it));
     using RMin = decltype(detail_cr::impl_min(std::declval<T>(), std::declval<T>(), cc::priority_tag<1>{}));
     using RMax = decltype(detail_cr::impl_max(std::declval<T>(), std::declval<T>(), cc::priority_tag<1>{}));
     static_assert(std::is_same_v<RMin, RMax>, "min and max types must be compatible");
@@ -270,32 +290,36 @@ template <class Range, class MapF = cc::identity>
     if constexpr (std::is_lvalue_reference_v<RMin> && std::is_lvalue_reference_v<T>)
     {
         static_assert(std::is_same_v<RMin, T>, "max must return compatible type");
-        std::remove_reference_t<RMin>* min_v = &f(*it);
+        std::remove_reference_t<RMin>* min_v = &cr::detail::call(idx, f, *it);
         std::remove_reference_t<RMin>* max_v = min_v;
         ++it;
+        ++idx;
 
         while (it != end)
         {
-            decltype(auto) v = f(*it);
+            decltype(auto) v = cr::detail::call(idx, f, *it);
             min_v = &detail_cr::impl_min(*min_v, v, cc::priority_tag<1>{});
             max_v = &detail_cr::impl_max(*max_v, v, cc::priority_tag<1>{});
             ++it;
+            ++idx;
         }
 
         return minmax_t<RMin>{*min_v, *max_v};
     }
     else // .. otherwise return by value
     {
-        std::decay_t<T> min_v = f(*it);
+        std::decay_t<T> min_v = cr::detail::call(idx, f, *it);
         std::decay_t<T> max_v = min_v;
         ++it;
+        ++idx;
 
         while (it != end)
         {
-            decltype(auto) v = f(*it);
+            decltype(auto) v = cr::detail::call(idx, f, *it);
             min_v = detail_cr::impl_min(min_v, v, cc::priority_tag<1>{});
             max_v = detail_cr::impl_max(max_v, v, cc::priority_tag<1>{});
             ++it;
+            ++idx;
         }
 
         return minmax_t<std::decay_t<T>>{cc::move(min_v), cc::move(max_v)};
@@ -315,20 +339,22 @@ template <class Range, class KeyF>
     auto it = cc::begin(range);
     auto end = cc::end(range);
     CC_ASSERT(it != end && "only non-empty ranges supported");
+    size_t idx = 0;
 
-    using T = decltype(key(*it));
+    using T = decltype(cr::detail::call(idx, key, *it));
 
     if constexpr (std::is_lvalue_reference_v<T>)
     {
-        auto min_key = &key(*it);
+        auto min_key = &cr::detail::call(idx, key, *it);
         auto min_it = it;
         auto max_key = min_key;
         auto max_it = it;
 
         ++it;
+        ++idx;
         while (it != end)
         {
-            auto k = &key(*it);
+            auto k = &cr::detail::call(idx, key, *it);
             if (*k < *min_key)
             {
                 min_key = k;
@@ -340,21 +366,23 @@ template <class Range, class KeyF>
                 max_it = it;
             }
             ++it;
+            ++idx;
         }
 
         return minmax_t<decltype(*it)>{*min_it, *max_it};
     }
     else
     {
-        auto max_key = key(*it);
+        auto max_key = cr::detail::call(idx, key, *it);
         auto max_it = it;
         auto min_key = max_key;
         auto min_it = it;
 
         ++it;
+        ++idx;
         while (it != end)
         {
-            auto k = key(*it);
+            auto k = cr::detail::call(idx, key, *it);
             if (k < min_key)
             {
                 min_key = cc::move(k);
@@ -366,6 +394,7 @@ template <class Range, class KeyF>
                 max_it = it;
             }
             ++it;
+            ++idx;
         }
 
         return minmax_t<decltype(*it)>{*min_it, *max_it};

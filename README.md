@@ -98,6 +98,7 @@ QoL:
 
 * xyz vs xyz'ed versions (e.g. sort vs sorted, reverse vs reversed)
 * rethink const-correctness in smart_range
+* find_or's default template arg T (so that find_or(r, f, {}) works)
 
 Extensibility:
 
