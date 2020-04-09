@@ -24,12 +24,4 @@ target_link_libraries(clean-ranges PUBLIC
     typed-geometry
 )
 
-# =========================================
-# set up compile flags
-
-if (MSVC)
-    target_compile_options(clean-ranges PUBLIC /MP)
-else()
-    target_compile_options(clean-ranges PRIVATE -Wall -fPIC)
-    target_link_libraries(clean-ranges PUBLIC -fuse-ld=gold)
-endif()
+arcana_configure_lib_options(clean-ranges) # set up compile flags
