@@ -134,7 +134,7 @@ public:
 
     template <class T>
     constexpr void fill(T const& value);
-    
+
     template <class MapF = cc::identity>
     [[nodiscard]] constexpr auto indexed(MapF&& f = {});
     template <class Range, class... Ranges>
