@@ -126,12 +126,15 @@ public:
     template <class T>
     constexpr auto pad_with(T&& value);
 
+    template <class... MapF>
+    [[nodiscard]] constexpr auto flatmap(MapF&&... maps);
+
     template <class T>
     [[nodiscard]] constexpr auto cast_to();
 
     template <class T>
     constexpr void fill(T const& value);
-    
+
     template <class MapF = cc::identity>
     [[nodiscard]] constexpr auto indexed(MapF&& f = {});
     template <class Range, class... Ranges>

@@ -56,7 +56,7 @@ Algorithms:
 * median
 * mode
 * percentile
-* flatten
+* flatten / flatmap (variadic!)
 * ordered_by / sort (inplace)
 * unzip
 * windowed / chunked / pairwise
@@ -67,12 +67,15 @@ Algorithms:
 * join_to / join_to_string
 * partition (pred -> left and right result)
 * shuffled
+* slice
 * associate (creates a map)
 * prefix / suffix / subrange
 * is_prefix / is_suffix / startswith / endswith / is_subrange
 * 3way comp, lexicographic
 * find_it, find_opt
 * "is same value"
+* clamp_to / clamped_to
+* random
 * "deref_valid"? (basically `where(x => bool(x)).map(x => *x)`, unpacking ptr, optional)
 
 Algorithms that are unclear how to implement (for now):
@@ -95,6 +98,7 @@ QoL:
 
 * xyz vs xyz'ed versions (e.g. sort vs sorted, reverse vs reversed)
 * rethink const-correctness in smart_range
+* find_or's default template arg T (so that find_or(r, f, {}) works)
 
 Extensibility:
 
