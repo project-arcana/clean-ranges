@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 #include <clean-core/assert.hh>
 #include <clean-core/constant_function.hh>
 #include <clean-core/iterator.hh>
@@ -34,11 +36,11 @@ template <class Range, class T>
 
 /// same as cr::index_of(range, value) but returns -1 if no element found
 template <class Range, class T>
-[[nodiscard]] constexpr cc::int64 index_of_safe(Range&& range, T const& value)
+[[nodiscard]] constexpr int64_t index_of_safe(Range&& range, T const& value)
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
-    cc::int64 idx = 0;
+    int64_t idx = 0;
 
     while (it != end)
     {
@@ -76,11 +78,11 @@ template <class Range, class Predicate>
 
 /// same as cr::index_of_first(range, predicate) but returns -1 if no element found
 template <class Range, class Predicate>
-[[nodiscard]] constexpr cc::int64 index_of_first_safe(Range&& range, Predicate&& predicate = {})
+[[nodiscard]] constexpr int64_t index_of_first_safe(Range&& range, Predicate&& predicate = {})
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
-    cc::int64 idx = 0;
+    int64_t idx = 0;
 
     while (it != end)
     {
@@ -121,12 +123,12 @@ template <class Range, class Predicate>
 
 /// same as cr::index_of_last(range, predicate) but returns -1 if no element found
 template <class Range, class Predicate>
-[[nodiscard]] constexpr cc::int64 index_of_last_safe(Range&& range, Predicate&& predicate = {})
+[[nodiscard]] constexpr int64_t index_of_last_safe(Range&& range, Predicate&& predicate = {})
 {
     auto it = cc::begin(range);
     auto end = cc::end(range);
-    cc::int64 idx = 0;
-    cc::int64 r = -1;
+    int64_t idx = 0;
+    int64_t r = -1;
 
     while (it != end)
     {
