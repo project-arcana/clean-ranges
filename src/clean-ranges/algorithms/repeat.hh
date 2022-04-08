@@ -50,7 +50,7 @@ struct repeat_range
 }
 
 /// returns a range that infinitely repeats the given range (optionally a mapped version of it)
-template <class Range, class MapF = cc::identity>
+template <class Range, class MapF = cc::identity_function>
 [[nodiscard]] constexpr auto repeat(Range&& range, MapF&& f = {})
 {
     return smart_range<detail::repeat_range<Range, MapF>>({cc::forward<Range>(range), cc::forward<MapF>(f)});

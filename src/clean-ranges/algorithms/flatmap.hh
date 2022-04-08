@@ -56,7 +56,7 @@ template <class Range, class... MapF>
 [[nodiscard]] constexpr auto flatmap(Range&& range, MapF&&... maps)
 {
     if constexpr (sizeof...(MapF) == 0)
-        return smart_range<detail::flat_mapped_range<Range, cc::identity>>({cc::forward<Range>(range), cc::identity{}});
+        return smart_range<detail::flat_mapped_range<Range, cc::identity_function>>({cc::forward<Range>(range), cc::identity_function{}});
     else
         return smart_range<detail::flat_mapped_range<Range, MapF...>>({cc::forward<Range>(range), cc::forward<MapF>(maps)...});
 }

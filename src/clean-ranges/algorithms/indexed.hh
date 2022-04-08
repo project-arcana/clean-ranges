@@ -55,7 +55,7 @@ struct indexed_range
 }
 
 /// returns a new range consisting of indexed_value{idx, f(e)} for each element
-template <class Range, class MapF = cc::identity>
+template <class Range, class MapF = cc::identity_function>
 [[nodiscard]] constexpr auto indexed(Range&& range, MapF&& f = {})
 {
     return smart_range<detail::indexed_range<Range, MapF>>({cc::forward<Range>(range), cc::forward<MapF>(f)});

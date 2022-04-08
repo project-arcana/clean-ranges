@@ -2,11 +2,10 @@
 
 #include <type_traits>
 
-#include <clean-core/constant_function.hh>
 #include <clean-core/enable_if.hh>
 #include <clean-core/equal_to.hh>
 #include <clean-core/forward.hh>
-#include <clean-core/identity.hh>
+#include <clean-core/functors.hh>
 #include <clean-core/is_range.hh>
 #include <clean-core/iterator.hh>
 #include <clean-core/move.hh>
@@ -61,25 +60,25 @@ public:
     template <class RhsRange, class Comp = cc::equal_to<void>>
     [[nodiscard]] constexpr bool is_not_equal_to(RhsRange const& range, Comp&& comp = {});
 
-    template <class MapF = cc::identity>
+    template <class MapF = cc::identity_function>
     [[nodiscard]] constexpr auto sum(MapF&& f = {});
-    template <class MapF = cc::identity>
+    template <class MapF = cc::identity_function>
     [[nodiscard]] constexpr auto average(MapF&& f = {});
 
-    template <class MapF = cc::identity>
+    template <class MapF = cc::identity_function>
     [[nodiscard]] constexpr auto min(MapF&& f = {});
     template <class KeyF>
     [[nodiscard]] constexpr auto min_by(KeyF&& key);
-    template <class MapF = cc::identity>
+    template <class MapF = cc::identity_function>
     [[nodiscard]] constexpr auto max(MapF&& f = {});
     template <class KeyF>
     [[nodiscard]] constexpr auto max_by(KeyF&& key);
-    template <class MapF = cc::identity>
+    template <class MapF = cc::identity_function>
     [[nodiscard]] constexpr auto minmax(MapF&& f = {});
     template <class KeyF>
     [[nodiscard]] constexpr auto minmax_by(KeyF&& key);
 
-    template <class Op, class MapF = cc::identity>
+    template <class Op, class MapF = cc::identity_function>
     [[nodiscard]] constexpr auto reduce(Op&& op, MapF&& f = {});
 
     [[nodiscard]] constexpr size_t count();
@@ -118,9 +117,9 @@ public:
     [[nodiscard]] constexpr auto map_where(MapF&& f, Predicate&& pred);
     template <class MapF, class Predicate>
     [[nodiscard]] constexpr auto map_where_not(MapF&& f, Predicate&& pred);
-    template <class MapF = cc::identity>
+    template <class MapF = cc::identity_function>
     [[nodiscard]] constexpr auto each(MapF&& f = {});
-    template <class MapF = cc::identity>
+    template <class MapF = cc::identity_function>
     [[nodiscard]] constexpr auto repeat(MapF&& f = {});
     [[nodiscard]] constexpr auto times(size_t cnt);
     template <class T>
@@ -135,18 +134,18 @@ public:
     template <class T>
     constexpr void fill(T const& value);
 
-    template <class MapF = cc::identity>
+    template <class MapF = cc::identity_function>
     [[nodiscard]] constexpr auto indexed(MapF&& f = {});
     template <class Range, class... Ranges>
     [[nodiscard]] constexpr auto zip(Range&& range, Ranges&&... ranges);
     template <class Range, class... Ranges>
     [[nodiscard]] constexpr auto concat(Range&& range, Ranges&&... ranges);
 
-    template <class Container, class MapF = cc::identity>
+    template <class Container, class MapF = cc::identity_function>
     constexpr void collect(Container& container, MapF&& f = {});
-    template <template <class...> class ContainerTemplate, class MapF = cc::identity>
+    template <template <class...> class ContainerTemplate, class MapF = cc::identity_function>
     [[nodiscard]] constexpr auto to(MapF&& f = {});
-    template <class Container, class MapF = cc::identity>
+    template <class Container, class MapF = cc::identity_function>
     [[nodiscard]] constexpr auto to(MapF&& f = {});
 
     template <class RhsRange>

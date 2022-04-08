@@ -1,8 +1,8 @@
 #pragma once
 
 #include <clean-core/assert.hh>
+#include <clean-core/functors.hh>
 #include <clean-core/has_operator.hh>
-#include <clean-core/identity.hh>
 #include <clean-core/iterator.hh>
 #include <clean-core/move.hh>
 
@@ -44,7 +44,7 @@ namespace cr
 ///   - requires either operator< or a free function min(a, b) via ADL
 ///   - calls f exactly once per element
 ///   - does not work on empty ranges
-template <class Range, class MapF = cc::identity>
+template <class Range, class MapF = cc::identity_function>
 [[nodiscard]] constexpr decltype(auto) min(Range&& range, MapF&& f = {})
 {
     auto it = cc::begin(range);
@@ -156,7 +156,7 @@ template <class Range, class KeyF>
 ///   - requires either operator< or a free function max(a, b) via ADL
 ///   - calls f exactly once per element
 ///   - does not work on empty ranges
-template <class Range, class MapF = cc::identity>
+template <class Range, class MapF = cc::identity_function>
 [[nodiscard]] constexpr decltype(auto) max(Range&& range, MapF&& f = {})
 {
     auto it = cc::begin(range);
@@ -274,7 +274,7 @@ struct minmax_t
 ///   - requires either operator< or a free functions min(a, b) and max(a, b) via ADL
 ///   - calls f exactly once per element
 ///   - does not work on empty ranges
-template <class Range, class MapF = cc::identity>
+template <class Range, class MapF = cc::identity_function>
 [[nodiscard]] constexpr auto minmax(Range&& range, MapF&& f = {})
 {
     auto it = cc::begin(range);

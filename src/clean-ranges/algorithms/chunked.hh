@@ -10,7 +10,7 @@
 
 namespace cr
 {
-template <class Range, class MapF = cc::identity>
+template <class Range, class MapF = cc::identity_function>
 [[nodiscard]] constexpr auto chunked(Range&& range, size_t size, MapF f = {})
 {
 }
