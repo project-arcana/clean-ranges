@@ -1,7 +1,7 @@
 #pragma once
 
 #include <clean-core/assert.hh>
-#include <clean-core/identity.hh>
+#include <clean-core/functors.hh>
 #include <clean-core/iterator.hh>
 
 #include <clean-ranges/detail/call.hh>
@@ -14,7 +14,7 @@ namespace cr
 /// NOTE:
 ///   - requires a non-empty range
 ///   - accumulation type can be optionally specified
-template <class AccumT = void, class Range, class MapF = cc::identity>
+template <class AccumT = void, class Range, class MapF = cc::identity_function>
 [[nodiscard]] constexpr auto sum(Range&& range, MapF&& f = {})
 {
     auto it = cc::begin(range);

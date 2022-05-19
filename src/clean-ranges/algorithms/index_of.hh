@@ -3,7 +3,7 @@
 #include <cstdint>
 
 #include <clean-core/assert.hh>
-#include <clean-core/constant_function.hh>
+#include <clean-core/functors.hh>
 #include <clean-core/iterator.hh>
 
 #include <clean-ranges/detail/call.hh>

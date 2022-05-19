@@ -1,7 +1,7 @@
 #pragma once
 
 #include <clean-core/assert.hh>
-#include <clean-core/identity.hh>
+#include <clean-core/functors.hh>
 #include <clean-core/iterator.hh>
 
 #include <clean-ranges/detail/call.hh>
@@ -15,7 +15,7 @@ namespace cr
 ///   - requires a non-empty range
 ///   - count type can be provided optionally
 ///   - returns sum(range, f) / static_cast<CountT>(count(v)) (i.e. requires operator/)
-template <class CountT = void, class Range, class MapF = cc::identity>
+template <class CountT = void, class Range, class MapF = cc::identity_function>
 [[nodiscard]] constexpr auto average(Range&& range, MapF&& f = {})
 {
     auto it = cc::begin(range);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <clean-core/identity.hh>
+#include <clean-core/functors.hh>
 #include <clean-core/iterator.hh>
 #include <clean-core/priority_tag.hh>
 
@@ -57,7 +57,7 @@ constexpr void impl_add_to_container(Container& c, T&& v)
 ///   - c.push(e)
 ///   - c << e
 ///   - c += e
-template <class Range, class Container, class MapF = cc::identity>
+template <class Range, class Container, class MapF = cc::identity_function>
 constexpr void collect(Range&& range, Container& container, MapF&& f = {})
 {
     auto it = cc::begin(range);

@@ -138,7 +138,7 @@ public:
 /// e.g. cr::each(my_range) += 3;
 ///   or cr::each(my_range) = cr::each(my_range) * 3 + 2;
 ///   or cr::any(cr::each(my_range) == 7)
-template <class Range, class MapF = cc::identity>
+template <class Range, class MapF = cc::identity_function>
 [[nodiscard]] constexpr auto each(Range&& range, MapF&& f = {})
 {
     return detail::elementwise_range<Range, MapF>{cc::forward<Range>(range), cc::forward<MapF>(f)};

@@ -5,7 +5,7 @@
 namespace cr
 {
 /// same as collect_into but creates and returns a new container
-template <template <class...> class ContainerTemplate, class Range, class MapF = cc::identity>
+template <template <class...> class ContainerTemplate, class Range, class MapF = cc::identity_function>
 [[nodiscard]] constexpr auto to(Range&& range, MapF&& f = {})
 {
     using T = std::decay_t<decltype(cr::detail::call(size_t(0), f, *cc::begin(range)))>;
@@ -16,7 +16,7 @@ template <template <class...> class ContainerTemplate, class Range, class MapF =
 }
 
 /// same as collect_into but creates and returns a new container
-template <class Container, class Range, class MapF = cc::identity>
+template <class Container, class Range, class MapF = cc::identity_function>
 [[nodiscard]] constexpr auto to(Range&& range, MapF&& f = {})
 {
     Container container;
