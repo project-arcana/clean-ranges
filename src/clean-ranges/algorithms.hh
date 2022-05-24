@@ -36,3 +36,5 @@
 #include <clean-ranges/algorithms/to.hh>
 #include <clean-ranges/algorithms/where.hh>
 #include <clean-ranges/algorithms/zip.hh>
+
+#include <clean-ranges/predicates.hh>
