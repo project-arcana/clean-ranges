@@ -33,6 +33,9 @@ CR_PREDICATE(v <= 0) is_non_positive;
 CR_PREDICATE(v == 0) is_zero;
 CR_PREDICATE(v != 0) is_non_zero;
 
+CR_PREDICATE(v == nullptr) is_null;
+CR_PREDICATE(v != nullptr) is_non_null;
+
 CR_DEFINE_LHS_RHS_PREDICATE(is_equal_to, lhs == rhs);
 CR_DEFINE_LHS_RHS_PREDICATE(is_not_equal_to, lhs != rhs);
 CR_DEFINE_LHS_RHS_PREDICATE(is_greater_than, lhs > rhs);
