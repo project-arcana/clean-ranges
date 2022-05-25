@@ -6,7 +6,9 @@
 #include <clean-core/iterator.hh>
 #include <clean-core/sentinel.hh>
 
+#include <clean-ranges/algorithms/map.hh>
 #include <clean-ranges/detail/call.hh>
+#include <clean-ranges/ranges/sentinel_range.hh>
 #include <clean-ranges/smart_range.hh>
 
 namespace cr
@@ -112,6 +114,26 @@ public:
     }                                                                  \
     CC_FORCE_SEMICOLON
 
+// TODO: support ranges for rhs
+#define CR_IMPL_ELEMENTWISE_OP(op)                                                                           \
+    template <class T>                                                                                       \
+    constexpr auto operator op(T&& rhs) const                                                                \
+    {                                                                                                        \
+        return cr::map(cr::detail::sentinel_range{begin()}, [&rhs](auto const& lhs) { return lhs op rhs; }); \
+    }                                                                                                        \
+    CC_FORCE_SEMICOLON
+
+    CR_IMPL_ELEMENTWISE_OP(+);
+    CR_IMPL_ELEMENTWISE_OP(-);
+    CR_IMPL_ELEMENTWISE_OP(*);
+    CR_IMPL_ELEMENTWISE_OP(/);
+    CR_IMPL_ELEMENTWISE_OP(%);
+    CR_IMPL_ELEMENTWISE_OP(&);
+    CR_IMPL_ELEMENTWISE_OP(|);
+    CR_IMPL_ELEMENTWISE_OP(^);
+    CR_IMPL_ELEMENTWISE_OP(<<);
+    CR_IMPL_ELEMENTWISE_OP(>>);
+
     CR_IMPL_ELEMENTWISE_OPASSIGN(=);
     CR_IMPL_ELEMENTWISE_OPASSIGN(+=);
     CR_IMPL_ELEMENTWISE_OPASSIGN(-=);
@@ -124,13 +146,8 @@ public:
     CR_IMPL_ELEMENTWISE_OPASSIGN(<<=);
     CR_IMPL_ELEMENTWISE_OPASSIGN(>>=);
 
+#undef CR_IMPL_ELEMENTWISE_OP
 #undef CR_IMPL_ELEMENTWISE_OPASSIGN
-
-    // template <class T>
-    // constexpr auto operator+(T&& rhs) &&
-    // {
-    //     return elementwise_range
-    // }
 };
 }
 

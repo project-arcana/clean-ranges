@@ -10,6 +10,10 @@ TEST("cr::each")
 {
     cc::vector<int> v;
 
+    //
+    // op=
+    //
+
     v = {3, 1, 2};
     cr::each(v) += 2;
     CHECK(v == cc::vector{5, 3, 4});
@@ -57,6 +61,20 @@ TEST("cr::each")
     v = {3, 1, 2};
     cr::each(v) += {2, 0, 1, 4};
     CHECK(v == cc::vector{5, 1, 3});
+
+    //
+    // op
+    //
+
+    v = {3, 1, 2};
+    CHECK(cr::each(v) + 2 == cc::vector{5, 3, 4});
+    CHECK(cr::each(v) - 2 == cc::vector{1, -1, 0});
+    CHECK(cr::each(v) * 2 == cc::vector{6, 2, 4});
+    CHECK(cr::each(v) / 2 == cc::vector{1, 0, 1});
+
+    //
+    // mapped
+    //
 
     struct foo
     {
