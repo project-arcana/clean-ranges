@@ -33,6 +33,9 @@ CR_PREDICATE(v <= 0) is_non_positive;
 CR_PREDICATE(v == 0) is_zero;
 CR_PREDICATE(v != 0) is_non_zero;
 
+CR_PREDICATE(bool(v)) is_true;
+CR_PREDICATE(!bool(v)) is_false;
+
 CR_PREDICATE(v == nullptr) is_null;
 CR_PREDICATE(v != nullptr) is_non_null;
 
