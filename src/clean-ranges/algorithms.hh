@@ -26,6 +26,7 @@
 #include <clean-ranges/algorithms/last.hh>
 #include <clean-ranges/algorithms/map.hh>
 #include <clean-ranges/algorithms/minmax.hh>
+#include <clean-ranges/algorithms/none.hh>
 #include <clean-ranges/algorithms/pad_with.hh>
 #include <clean-ranges/algorithms/reduce.hh>
 #include <clean-ranges/algorithms/repeat.hh>
@@ -36,3 +37,5 @@
 #include <clean-ranges/algorithms/to.hh>
 #include <clean-ranges/algorithms/where.hh>
 #include <clean-ranges/algorithms/zip.hh>
+
+#include <clean-ranges/predicates.hh>
